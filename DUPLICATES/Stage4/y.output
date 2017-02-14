@@ -1,0 +1,601 @@
+Terminals unused in grammar
+
+   ASSIGN
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: slist NEWLINE
+
+    2 slist: slist stmt
+    3      | stmt
+
+    4 expr: expr PLUS expr
+    5     | expr MINUS expr
+    6     | expr MUL expr
+    7     | ID
+    8     | NUM
+
+    9 cond: expr EQ expr
+   10     | expr LT expr
+   11     | expr GT expr
+
+   12 stmt: ID ASGN expr ';'
+   13     | READ '(' ID ')' ';'
+   14     | WRITE '(' expr ')' ';'
+   15     | IF '(' cond ')' THEN slist ELSE slist ENDIF ';'
+   16     | WHILE '(' cond ')' DO slist ENDWHILE ';'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 13 14 15 16
+')' (41) 13 14 15 16
+';' (59) 12 13 14 15 16
+error (256)
+PLUS (258) 4
+MINUS (259) 5
+MUL (260) 6
+ID (261) 7 12 13
+ASSIGN (262)
+NUM (263) 8
+LT (264) 10
+GT (265) 11
+EQ (266) 9
+IF (267) 15
+THEN (268) 15
+ELSE (269) 15
+ENDIF (270) 15
+WHILE (271) 16
+DO (272) 16
+ENDWHILE (273) 16
+READ (274) 13
+WRITE (275) 14
+ASGN (276) 12
+NEWLINE (277) 1
+
+
+Nonterminals, with rules where they appear
+
+$accept (26)
+    on left: 0
+Program (27)
+    on left: 1, on right: 0
+slist (28)
+    on left: 2 3, on right: 1 2 15 16
+expr (29)
+    on left: 4 5 6 7 8, on right: 4 5 6 9 10 11 12 14
+cond (30)
+    on left: 9 10 11, on right: 15 16
+stmt (31)
+    on left: 12 13 14 15 16, on right: 2 3
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    Program  go to state 6
+    slist    go to state 7
+    stmt     go to state 8
+
+
+State 1
+
+   12 stmt: ID . ASGN expr ';'
+
+    ASGN  shift, and go to state 9
+
+
+State 2
+
+   15 stmt: IF . '(' cond ')' THEN slist ELSE slist ENDIF ';'
+
+    '('  shift, and go to state 10
+
+
+State 3
+
+   16 stmt: WHILE . '(' cond ')' DO slist ENDWHILE ';'
+
+    '('  shift, and go to state 11
+
+
+State 4
+
+   13 stmt: READ . '(' ID ')' ';'
+
+    '('  shift, and go to state 12
+
+
+State 5
+
+   14 stmt: WRITE . '(' expr ')' ';'
+
+    '('  shift, and go to state 13
+
+
+State 6
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 14
+
+
+State 7
+
+    1 Program: slist . NEWLINE
+    2 slist: slist . stmt
+
+    ID       shift, and go to state 1
+    IF       shift, and go to state 2
+    WHILE    shift, and go to state 3
+    READ     shift, and go to state 4
+    WRITE    shift, and go to state 5
+    NEWLINE  shift, and go to state 15
+
+    stmt  go to state 16
+
+
+State 8
+
+    3 slist: stmt .
+
+    $default  reduce using rule 3 (slist)
+
+
+State 9
+
+   12 stmt: ID ASGN . expr ';'
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 19
+
+
+State 10
+
+   15 stmt: IF '(' . cond ')' THEN slist ELSE slist ENDIF ';'
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 20
+    cond  go to state 21
+
+
+State 11
+
+   16 stmt: WHILE '(' . cond ')' DO slist ENDWHILE ';'
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 20
+    cond  go to state 22
+
+
+State 12
+
+   13 stmt: READ '(' . ID ')' ';'
+
+    ID  shift, and go to state 23
+
+
+State 13
+
+   14 stmt: WRITE '(' . expr ')' ';'
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 24
+
+
+State 14
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 15
+
+    1 Program: slist NEWLINE .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 16
+
+    2 slist: slist stmt .
+
+    $default  reduce using rule 2 (slist)
+
+
+State 17
+
+    7 expr: ID .
+
+    $default  reduce using rule 7 (expr)
+
+
+State 18
+
+    8 expr: NUM .
+
+    $default  reduce using rule 8 (expr)
+
+
+State 19
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+   12 stmt: ID ASGN expr . ';'
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+    ';'    shift, and go to state 28
+
+
+State 20
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+    9 cond: expr . EQ expr
+   10     | expr . LT expr
+   11     | expr . GT expr
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+    LT     shift, and go to state 29
+    GT     shift, and go to state 30
+    EQ     shift, and go to state 31
+
+
+State 21
+
+   15 stmt: IF '(' cond . ')' THEN slist ELSE slist ENDIF ';'
+
+    ')'  shift, and go to state 32
+
+
+State 22
+
+   16 stmt: WHILE '(' cond . ')' DO slist ENDWHILE ';'
+
+    ')'  shift, and go to state 33
+
+
+State 23
+
+   13 stmt: READ '(' ID . ')' ';'
+
+    ')'  shift, and go to state 34
+
+
+State 24
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+   14 stmt: WRITE '(' expr . ')' ';'
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+    ')'    shift, and go to state 35
+
+
+State 25
+
+    4 expr: expr PLUS . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 36
+
+
+State 26
+
+    5 expr: expr MINUS . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 37
+
+
+State 27
+
+    6 expr: expr MUL . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 38
+
+
+State 28
+
+   12 stmt: ID ASGN expr ';' .
+
+    $default  reduce using rule 12 (stmt)
+
+
+State 29
+
+   10 cond: expr LT . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 39
+
+
+State 30
+
+   11 cond: expr GT . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 40
+
+
+State 31
+
+    9 cond: expr EQ . expr
+
+    ID   shift, and go to state 17
+    NUM  shift, and go to state 18
+
+    expr  go to state 41
+
+
+State 32
+
+   15 stmt: IF '(' cond ')' . THEN slist ELSE slist ENDIF ';'
+
+    THEN  shift, and go to state 42
+
+
+State 33
+
+   16 stmt: WHILE '(' cond ')' . DO slist ENDWHILE ';'
+
+    DO  shift, and go to state 43
+
+
+State 34
+
+   13 stmt: READ '(' ID ')' . ';'
+
+    ';'  shift, and go to state 44
+
+
+State 35
+
+   14 stmt: WRITE '(' expr ')' . ';'
+
+    ';'  shift, and go to state 45
+
+
+State 36
+
+    4 expr: expr . PLUS expr
+    4     | expr PLUS expr .
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+
+    MUL  shift, and go to state 27
+
+    $default  reduce using rule 4 (expr)
+
+
+State 37
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    5     | expr MINUS expr .
+    6     | expr . MUL expr
+
+    MUL  shift, and go to state 27
+
+    $default  reduce using rule 5 (expr)
+
+
+State 38
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+    6     | expr MUL expr .
+
+    $default  reduce using rule 6 (expr)
+
+
+State 39
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+   10 cond: expr LT expr .
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+
+    $default  reduce using rule 10 (cond)
+
+
+State 40
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+   11 cond: expr GT expr .
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+
+    $default  reduce using rule 11 (cond)
+
+
+State 41
+
+    4 expr: expr . PLUS expr
+    5     | expr . MINUS expr
+    6     | expr . MUL expr
+    9 cond: expr EQ expr .
+
+    PLUS   shift, and go to state 25
+    MINUS  shift, and go to state 26
+    MUL    shift, and go to state 27
+
+    $default  reduce using rule 9 (cond)
+
+
+State 42
+
+   15 stmt: IF '(' cond ')' THEN . slist ELSE slist ENDIF ';'
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    slist  go to state 46
+    stmt   go to state 8
+
+
+State 43
+
+   16 stmt: WHILE '(' cond ')' DO . slist ENDWHILE ';'
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    slist  go to state 47
+    stmt   go to state 8
+
+
+State 44
+
+   13 stmt: READ '(' ID ')' ';' .
+
+    $default  reduce using rule 13 (stmt)
+
+
+State 45
+
+   14 stmt: WRITE '(' expr ')' ';' .
+
+    $default  reduce using rule 14 (stmt)
+
+
+State 46
+
+    2 slist: slist . stmt
+   15 stmt: IF '(' cond ')' THEN slist . ELSE slist ENDIF ';'
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    ELSE   shift, and go to state 48
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    stmt  go to state 16
+
+
+State 47
+
+    2 slist: slist . stmt
+   16 stmt: WHILE '(' cond ')' DO slist . ENDWHILE ';'
+
+    ID        shift, and go to state 1
+    IF        shift, and go to state 2
+    WHILE     shift, and go to state 3
+    ENDWHILE  shift, and go to state 49
+    READ      shift, and go to state 4
+    WRITE     shift, and go to state 5
+
+    stmt  go to state 16
+
+
+State 48
+
+   15 stmt: IF '(' cond ')' THEN slist ELSE . slist ENDIF ';'
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    slist  go to state 50
+    stmt   go to state 8
+
+
+State 49
+
+   16 stmt: WHILE '(' cond ')' DO slist ENDWHILE . ';'
+
+    ';'  shift, and go to state 51
+
+
+State 50
+
+    2 slist: slist . stmt
+   15 stmt: IF '(' cond ')' THEN slist ELSE slist . ENDIF ';'
+
+    ID     shift, and go to state 1
+    IF     shift, and go to state 2
+    ENDIF  shift, and go to state 52
+    WHILE  shift, and go to state 3
+    READ   shift, and go to state 4
+    WRITE  shift, and go to state 5
+
+    stmt  go to state 16
+
+
+State 51
+
+   16 stmt: WHILE '(' cond ')' DO slist ENDWHILE ';' .
+
+    $default  reduce using rule 16 (stmt)
+
+
+State 52
+
+   15 stmt: IF '(' cond ')' THEN slist ELSE slist ENDIF . ';'
+
+    ';'  shift, and go to state 53
+
+
+State 53
+
+   15 stmt: IF '(' cond ')' THEN slist ELSE slist ENDIF ';' .
+
+    $default  reduce using rule 15 (stmt)

@@ -1,0 +1,1 @@
+read(a); read(h); c=10; write(a); a = a+h*c; write(a);

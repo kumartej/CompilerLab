@@ -1,0 +1,1 @@
+read(a);read(b);read(c);write(a+b*c);a=1;while(a<20) do if(a<10) then write(a+10); else write(a+20); endif; a=a+1; endwhile;

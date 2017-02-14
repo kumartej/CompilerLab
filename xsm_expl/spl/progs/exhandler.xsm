@@ -1,0 +1,8 @@
+MOV R0,"Exception Occured"
+PORT P1, R0
+OUT
+MOV R0,"Program Terminated"
+PORT P1, R0
+OUT
+IRET
+HALT
