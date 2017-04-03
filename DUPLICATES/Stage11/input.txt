@@ -1,0 +1,93 @@
+type
+	linkedlist{
+		int marks;
+		linkedlist next;	
+	}
+
+	markList{
+		int id; 
+		linkedlist marks; 
+	}
+endtype
+
+decl
+	int fact(int n);
+	linkedlist insert(linkedlist root, int marks);
+enddecl
+
+int fact(int n)
+{
+	decl
+		int f;
+	enddecl
+	begin
+		if(n==0) then
+			f=1;
+		else
+			f=n*fact(n-1);
+		endif;
+		return f;
+	end
+}
+
+linkedlist insert(linkedlist root, int marks){
+	decl
+		linkedlist temp,temp2;
+	enddecl
+	begin
+		temp=root;
+		temp2=alloc();
+		temp2.marks=marks;
+		temp2.next=NULL;
+		if(temp!=NULL) then
+			while(temp.next!=NULL) do
+				temp=temp.next;
+			endwhile;
+			temp.next=temp2;
+		else
+			root=temp2;
+		endif;
+		return root;
+	end
+}
+
+int main()
+{
+	decl
+		int n,m,res,i;
+		linkedlist var1,var2,root;
+		markList std1;
+	enddecl
+	begin
+		read(n);
+		i=n;
+		root=NULL;
+		while( n >= 1 ) do
+			read(m);
+			res=fact(m);
+			root=insert(root,res);
+			n=n-1;
+		endwhile;
+		var1=root;
+		while( var1!=NULL ) do
+			write(var1.marks);
+			var1=var1.next;
+		endwhile;
+		read(n);
+		std1=alloc();
+		std1.id=n;
+		std1.marks=NULL;
+		i=0;
+		while(i<4) do
+			read(n);
+			std1.marks=insert(std1.marks,n);
+			i=i+1;
+		endwhile;
+		var1=std1.marks;
+		while(var1!=NULL) do
+			write(var1.marks);
+			var1=var1.next;
+		endwhile;
+		return 0;
+	end	
+}

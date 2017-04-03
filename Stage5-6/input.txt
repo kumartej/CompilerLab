@@ -26,7 +26,12 @@ begin
 	endwhile;
 	i=0;
 	while(i<n) do
-		write(ar[i]>3);
+		write(ar[i]);
 		i=i+1;
 	endwhile;
+	ar[0]=1;
+	ar[ar[0]]=2;
+	i=0;
+	j=0;
+	write(ar[ar[i+j]]);
 end

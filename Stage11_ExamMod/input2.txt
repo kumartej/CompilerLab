@@ -1,0 +1,51 @@
+type
+	bst{
+		int val;
+		bst left;
+		bst right;
+	}
+endtype
+
+decl
+	pair swap(pair p, pair q);
+	pair resolve(pair p);
+enddecl
+
+pair swap(pair p, pair q){
+	decl
+	enddecl
+	begin
+		q=(snd(p),fst(p));
+		return q;
+	end
+}
+
+pair resolve(pair p){
+	decl
+	enddecl
+	begin
+		if(fst(p)!=0 && snd(p)!=0) then
+			p=(fst(p)-1,snd(p)-1);
+			p=resolve(p);
+		endif;
+		return p;
+	end
+}
+
+int main(){
+	decl
+		pair v1,v2;
+	enddecl
+	begin
+		v1=(15,11);
+		v2=swap(v1,v1);
+		write(fst(v1));
+		write(snd(v1));
+		write(fst(v2));
+		write(snd(v2));
+		v1=resolve(v1);
+		write(fst(v1));
+		write(snd(v1));
+		return 0;
+	end
+}

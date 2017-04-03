@@ -1,0 +1,101 @@
+type
+	bst{
+		int val;
+		bst left;
+		bst right;
+	}
+endtype
+
+decl
+	bst insert(int val,bst root);
+	int preorder(bst root);
+	int inorder(bst root);
+	int postorder(bst root);
+enddecl
+
+bst insert(int val,bst root){
+	decl
+		bst temp;
+	enddecl
+	begin
+		if(root==NULL) then
+			temp=alloc();
+			temp.val=val;
+			temp.left=NULL;
+			temp.right=NULL;
+			root=temp;
+		else
+			if(root.val>val) then
+				root.left=insert(val,root.left);
+			else if(root.val<val) then
+					root.right=insert(val,root.right);
+				endif;
+			endif;
+		endif;
+		return root;
+	end
+}
+
+int preorder(bst root){
+	decl
+		int a;
+	enddecl
+	begin
+		if(root!=NULL) then
+			a = preorder(root.left);
+			write(root.val);
+			a = preorder(root.right);
+		endif;
+		return 1;
+	end
+}
+
+int postorder(bst root){
+	decl
+		int a;
+	enddecl
+	begin
+		if(root!=NULL) then
+			a = postorder(root.left);
+			a = postorder(root.right);
+			write(root.val);
+		endif;
+		return 1;
+	end
+}
+
+int inorder(bst root){
+	decl
+		int a;
+	enddecl
+	begin
+		if(root!=NULL) then
+			write(root.val);
+			a = inorder(root.left);
+			a = inorder(root.right);
+		endif;
+		return 1;
+	end
+}
+
+int main(){
+	decl
+		int n,i,val,j,p,n;
+		bst root;
+	enddecl
+	begin
+		i=1;
+		root=NULL;
+		while(i==1) do
+			read(val);
+			if(val==0) then
+				break;
+			endif;
+			root=insert(val,root);
+		endwhile;
+		val = preorder(root);
+		val = inorder(root);
+		val = postorder(root);
+		return 0;
+	end
+}

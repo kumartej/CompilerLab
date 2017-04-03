@@ -1,0 +1,46 @@
+type
+	linkedlist{
+		int marks;
+		linkedlist next;	
+	}
+
+	markList{
+		int id; 
+		linkedlist marks; 
+	}
+endtype
+
+decl
+	pair fun1(pair t1, int a, int b);
+enddecl
+
+pair fun1(pair t1, int a, int b){
+	decl
+		pair v1,v2;
+		int c;
+	enddecl
+	begin
+		v1=(3,4);
+		write(fst(v1));
+		write(snd(v1));
+		return v1;
+	end
+}
+
+
+int main()
+{
+	decl
+		pair v1,v2;
+	enddecl
+	begin
+		v1=(1,2);
+		v2=v1;
+		write(snd(v1));
+		write(snd(v2));
+		v2=fun1(v1,2,3);
+		write(fst(v2));
+		write(snd(v2));
+		return 0;
+	end	
+}
